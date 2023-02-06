@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/Nafaya/esphome-native-api#readme",
   "dependencies": {
-    "bluebird": "^3.7.2",
     "google-protobuf": "^3.21.2",
     "multicast-dns": "^7.2.5"
   }
