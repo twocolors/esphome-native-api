@@ -24,6 +24,7 @@ client.connect();
 client.on('deviceInfo', deviceInfo => {
     console.log('Device info:', deviceInfo);
 });
+
 client.on('newEntity', entity => {
     console.log('New entity:', entity);
 
@@ -31,7 +32,12 @@ client.on('newEntity', entity => {
     if (entity.type === 'Light') {
         entity.setState(true);
     }
+
+    // show state
+    entity.on('state', (state) => console.log(state));
 });
+
+client.on('error', (error) => console.log(error));
 ```
 
 ### Discovery
@@ -132,8 +138,7 @@ const client = new Client({
     password = '',
     reconnect = true,
     reconnectInterval = 30000,
-    pingInterval = 15000,
-    pingAttempts = 3
+    pingInterval = 15000
 });
 ```
 
@@ -150,7 +155,6 @@ const client = new Client({
 - `clientInfo` - string, name of client to be sent to esphome device. (Not necessary to send but nice for debugging issues)
 - `clientInfo` - string, name of client to be sent to esphome device. Usually needed only for tracking connection on esphome device. See [Connection](#Connection)
 - `pingInterval` - optional. Default - `15000`. Ping interval. Amount of miliseconds. See [Connection](#Connection)
-- `pingAttempts` - optional. Default - `3`. Number of failed ping attempts after witch connection is considered to be corrupted. See [Connection](#Connection)
 
 
 ### Client methods and attributes
@@ -271,8 +275,7 @@ const connection = new Connection({
     password = '',
     reconnect = true,
     reconnectInterval = 30000,
-    pingInterval = 15000,
-    pingAttempts = 3
+    pingInterval = 15000
 });
 ```
 - `host` - (REQUIRED). Host or ip to connect to.
@@ -283,15 +286,10 @@ const connection = new Connection({
 - `clientInfo` - string, name of client to be sent to esphome device. (Not necessary to send but nice for debugging issues)
 - `clientInfo` - string, name of client to be sent to esphome device. Usually needed only for tracking connection on esphome device.
 - `pingInterval` - optional. Default - `15000`. Ping interval. Amount of miliseconds.
-- `pingAttempts` - optional. Default - `3`. Number of failed ping attempts after witch connection is considered to be corrupted.
 
 #### Methods and attributes
-- `socketConnected` - `true` if socket is connected but no
 - `connected` - `true` if client is introduced to esphome device
 - `authorized` - `true` if client is logged in esphome device
-- `connecting`
-- `reconnecting`
-- `disconnecting`
 - `connect()` - do connection try
 - `disconnect()` - close connection
 - `async deviceInfoService()` - subsribes to entities state changes. Returns device info object
@@ -319,8 +317,6 @@ const connection = new Connection({
 #### Connection events
 - `message.<type>` - when valid message from esphome device is received. First arg is message. The event is called before `message` event(more genetal analogue)
 - `message` - when valid message from esphome device is received. First arg is type, second is message.
-- `socketConnected` - emmited when socket is connected
-- `socketDisconnected` - emmited when socket is disconnected
 - `connected` - emmited if client is introduced to esphome device
 - `disconnected` - emmited if session is corruptred
 - `authorized` - emmited if client is logged in esphome device
