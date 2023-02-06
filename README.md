@@ -316,6 +316,7 @@ const connection = new Connection({
 
 #### Connection events
 - `message.<type>` - when valid message from esphome device is received. First arg is message. The event is called before `message` event(more genetal analogue)
+- `reconnect` - emmited if client is reconnect to esphome device
 - `message` - when valid message from esphome device is received. First arg is type, second is message.
 - `connected` - emmited if client is introduced to esphome device
 - `disconnected` - emmited if session is corruptred
