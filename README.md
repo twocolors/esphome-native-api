@@ -48,6 +48,7 @@ Discovery().then(results => {
     /*
     [
         {
+            port: 6053,
             network: 'wifi',
             board: 'esp8285',
             platform: 'ESP8266',
@@ -68,6 +69,7 @@ const discovery = new Discovery();
 discovery.on('info', console.log);
 /*
 {
+    port: 6053,
     network: 'wifi',
     board: 'esp8285',
     platform: 'ESP8266',
