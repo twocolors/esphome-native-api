@@ -1,5 +1,5 @@
 {
-  "name": "@twocolors/esphome-native-api",
+  "name": "@2colors/esphome-native-api",
   "version": "1.0.6",
   "description": "esphome native api client",
   "main": "index.js",

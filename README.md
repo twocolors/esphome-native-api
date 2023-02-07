@@ -6,12 +6,12 @@ This library implements client for [Esphome Native APi](https://esphome.io/compo
 ## Installation
 
 ```bash
-$ npm i @twocolors/esphome-native-api
+$ npm i @2colors/esphome-native-api
 ```
 ## Synopsis
 ### Device info and list entities
 ```javascript
-const { Client } = require('@twocolors/esphome-native-api');
+const { Client } = require('@2colors/esphome-native-api');
 const client = new Client({
     host: '<esp host or ip>',
     port: 6053,
@@ -41,7 +41,7 @@ client.on('error', (error) => console.log(error));
 
 ### Discovery
 ```javascript
-const { Discovery } = require('@twocolors/esphome-native-api');
+const { Discovery } = require('@2colors/esphome-native-api');
 Discovery().then(results => {
     console.log(results);
     /*
@@ -63,7 +63,7 @@ Discovery().then(results => {
 ```
 
 ```javascript
-const { Discovery } = require('@twocolors/esphome-native-api');
+const { Discovery } = require('@2colors/esphome-native-api');
 const discovery = new Discovery();
 discovery.on('info', console.log);
 /*
@@ -84,7 +84,7 @@ discovery.run();
 
 ### Logging
 ```javascript
-const { Client } = require('@twocolors/esphome-native-api');
+const { Client } = require('@2colors/esphome-native-api');
 const client = new Client({
     host: '<esp host or ip>',
     port: 6053,
@@ -101,7 +101,7 @@ client.on('logs', ({ message }) => {
 #### !!! Importan, if you want use on Windows must disable/uninstall Bonjour (Apple) !!!
 
 ```javascript
-const { Discovery } = require('@twocolors/esphome-native-api');
+const { Discovery } = require('@2colors/esphome-native-api');
 const discovery = new Discovery(options);
 ```
 
@@ -115,7 +115,7 @@ const discovery = new Discovery(options);
 - `reuseAddr` - optional. Default - `true`. Set the reuseAddr option when creating the socket (requires node >=0.11.13)
 
 ```javascript
-const { Discovery } = require('@twocolors/esphome-native-api');
+const { Discovery } = require('@2colors/esphome-native-api');
 Discovery(options).then(console.log)
 ```
 
@@ -126,7 +126,7 @@ Discovery(options).then(console.log)
 ### Client
 More frienly layer over the [Connection](#Connection)
 ```javascript
-const { Client } = require('@twocolors/esphome-native-api');
+const { Client } = require('@2colors/esphome-native-api');
 const client = new Client({
     clearSession = false,
     initializeDeviceInfo = true,
@@ -268,7 +268,7 @@ Only base functionality
 
 ### Connection
 ```javascript
-const { Connection } = require('@twocolors/esphome-native-api');
+const { Connection } = require('@2colors/esphome-native-api');
 const connection = new Connection({
     port = 6053,
     host,
