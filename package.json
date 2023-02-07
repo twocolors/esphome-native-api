@@ -1,6 +1,6 @@
 {
-  "name": "esphome-native-api",
-  "version": "1.0.5",
+  "name": "@twocolors/esphome-native-api",
+  "version": "1.0.6",
   "description": "esphome native api client",
   "main": "index.js",
   "scripts": {
@@ -8,20 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Nafaya/esphome-native-api.git"
+    "url": "git+https://github.com/twocolors/esphome-native-api.git"
   },
   "keywords": [
     "esphome",
     "native-api",
-    "esphome",
     "client"
   ],
-  "author": "Nafaya",
-  "license": "SEE LICENSE IN LICENSE",
+  "author": "D",
   "bugs": {
-    "url": "https://github.com/Nafaya/esphome-native-api/issues"
+    "url": "https://github.com/twocolors/esphome-native-api.git"
   },
-  "homepage": "https://github.com/Nafaya/esphome-native-api#readme",
+  "homepage": "https://github.com/twocolors/esphome-native-api#readme",
   "dependencies": {
     "google-protobuf": "^3.21.2",
     "multicast-dns": "^7.2.5"
