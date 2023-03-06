@@ -139,7 +139,8 @@ const client = new Client({
     password = '',
     reconnect = true,
     reconnectInterval = 30000,
-    pingInterval = 15000
+    pingInterval = 15000,
+    pingAttempts = 3
 });
 ```
 
@@ -156,6 +157,7 @@ const client = new Client({
 - `clientInfo` - string, name of client to be sent to esphome device. (Not necessary to send but nice for debugging issues)
 - `clientInfo` - string, name of client to be sent to esphome device. Usually needed only for tracking connection on esphome device. See [Connection](#Connection)
 - `pingInterval` - optional. Default - `15000`. Ping interval. Amount of miliseconds. See [Connection](#Connection)
+- `pingAttempts` - optional. Default - `3`. Number of failed ping attempts after witch connection is considered to be corrupted. See [Connection](#Connection)
 
 
 ### Client methods and attributes
@@ -276,7 +278,8 @@ const connection = new Connection({
     password = '',
     reconnect = true,
     reconnectInterval = 30000,
-    pingInterval = 15000
+    pingInterval = 15000,
+    pingAttempts = 3
 });
 ```
 - `host` - (REQUIRED). Host or ip to connect to.
@@ -287,6 +290,7 @@ const connection = new Connection({
 - `clientInfo` - string, name of client to be sent to esphome device. (Not necessary to send but nice for debugging issues)
 - `clientInfo` - string, name of client to be sent to esphome device. Usually needed only for tracking connection on esphome device.
 - `pingInterval` - optional. Default - `15000`. Ping interval. Amount of miliseconds.
+- `pingAttempts` - optional. Default - `3`. Number of failed ping attempts after witch connection is considered to be corrupted.
 
 #### Methods and attributes
 - `connected` - `true` if client is introduced to esphome device
