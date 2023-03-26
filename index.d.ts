@@ -268,6 +268,33 @@ declare module "@2colors/esphome-native-api" {
         addressType: number;
     };
 
+    export type BluetoothDeviceConnectionResponse = {
+        address: number;
+        connected: boolean;
+        mtu: number;
+        error: number;
+    };
+
+    export type BluetoothGATTCharacteristicDescriptor = {
+        uuidList: number[];
+        handle: number;
+    };
+    export type BluetoothGATTCharacteristic = {
+        uuidList: number[];
+        handle: number;
+        properties: number;
+        descriptorsList: BluetoothGATTCharacteristicDescriptor[];
+    };
+    export type BluetoothGATTService = {
+        uuidList: number[];
+        handle: number;
+        characteristicsList: BluetoothGATTCharacteristic[];
+    };
+    export type BluetoothGATTGetServicesResponse = {
+        address: number;
+        servicesList: BluetoothGATTService[];
+    };
+
     export class Connection {
         constructor(config: {
             host: string;
@@ -307,7 +334,17 @@ declare module "@2colors/esphome-native-api" {
         getTimeService(): Promise<GetTimeResponse>;
         listEntitiesService(): Promise<EntityList>;
         subscribeLogsService(level?: LogLevel, dumpConfig?: boolean): void;
+
         subscribeBluetoothAdvertisementService(): void;
+        connectBluetoothDeviceService(
+            address: number
+        ): Promise<BluetoothDeviceConnectionResponse>;
+        disconnectBluetoothDeviceService(
+            address: number
+        ): Promise<BluetoothDeviceConnectionResponse>;
+        listBluetoothGattServicesService(
+            address: number
+        ): Promise<BluetoothGATTGetServicesResponse>;
 
         once(event: "error", listener: (error: any) => void): this;
         once(event: "authorized", listener: () => void): this;
