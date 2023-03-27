@@ -301,7 +301,7 @@ const connection = new Connection({
 - `async getTimeService()` - subsribes to entities state changes. Returns time object
 - `async listEntitiesService()` - subsribes to entities state changes. Returns entities list
 - `subscribeStatesService()` - subsribes to entities state changes
-- `subscribeLogsService(level = 3, dumpConfig = false)` - subsribes to logs.
+- `subscribeLogsService(level = 5, dumpConfig = false)` - subsribes to logs.
     - `level` - logs level. 0 - NONE, 1 - ERROR, 2 - WARN, 3 - INFO, 4 - DEBUG, 5 - DEBUG, 6 - VERBOSE, 7 - VERY_VERBOSE
     - `dumpConfig`
 - `cameraImageService(single = true, stream = false)` - requests camera image.
