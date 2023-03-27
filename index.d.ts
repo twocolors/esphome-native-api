@@ -295,6 +295,21 @@ declare module "@2colors/esphome-native-api" {
         servicesList: BluetoothGATTService[];
     };
 
+    export type BluetoothGATTReadResponse = {
+        address: number;
+        handle: number;
+        data: string;
+    };
+    export type BluetoothGATTWriteResponse = {
+        address: number;
+        handle: number;
+    };
+    export type BluetoothGATTNotifyDataResponse = {
+        address: number;
+        handle: number;
+        data: string;
+    };
+
     export class Connection {
         constructor(config: {
             host: string;
@@ -345,6 +360,31 @@ declare module "@2colors/esphome-native-api" {
         listBluetoothGattServicesService(
             address: number
         ): Promise<BluetoothGATTGetServicesResponse>;
+
+        readBluetoothGATTCharacteristicService(
+            address: number,
+            handle: number
+        ): Promise<BluetoothGATTReadResponse>;
+        writeBluetoothGATTCharacteristicService(
+            address: number,
+            handle: number,
+            value: Uint8Array,
+            response = false
+        ): Promise<BluetoothGATTWriteResponse | void>;
+        notifyBluetoothGATTCharacteristicService(
+            address: number,
+            handle: number
+        ): Promise<BluetoothGATTNotifyResponse>;
+
+        readBluetoothGATTDescriptorService(
+            address: number,
+            handle: number
+        ): Promise<BluetoothGATTReadResponse>;
+        writeBluetoothGATTDescriptorService(
+            address: number,
+            handle: number,
+            value: Uint8Array
+        ): Promise<BluetoothGATTWriteResponse>;
 
         once(event: "error", listener: (error: any) => void): this;
         once(event: "authorized", listener: () => void): this;
@@ -494,6 +534,16 @@ declare module "@2colors/esphome-native-api" {
         off(
             event: "message.BluetoothLEAdvertisementResponse",
             listener: (message: BluetoothLEAdvertisementResponse) => void
+        ): this;
+
+        // notifyBluetoothGATTCharacteristicService events
+        on(
+            event: "message.BluetoothGATTNotifyDataResponse",
+            listener: (message: BluetoothGATTNotifyDataResponse) => void
+        ): this;
+        off(
+            event: "message.BluetoothGATTNotifyDataResponse",
+            listener: (message: BluetoothGATTNotifyDataResponse) => void
         ): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
