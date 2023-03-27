@@ -202,7 +202,7 @@ Only base functionality
     - `targetTemperatureLow`- optional. float
     - `targetTemperatureHigh`- optional. float
     - `legacyAway` - optional. Boolean. Deprecated: use `preset` with AWAY
-    - `fanMode` - optional. 0 - ON, 1 - OFF, 2 - AUTO, 3 - LOW, 4 - MEDIUM, 5 - HIGH, 6 - MIDDLE, 7 - FOCUS, 8 - DIFFUSE. See `supportedFanModesList` attr in config
+    - `fanMode` - optional. 0 - ON, 1 - OFF, 2 - AUTO, 3 - LOW, 4 - MEDIUM, 5 - HIGH, 6 - MIDDLE, 7 - FOCUS, 8 - DIFFUSE, 9 - QUIET. See `supportedFanModesList` attr in config
     - `swingMode` - optional. 0 - OFF, 1 - BOTH, 2 - VERTICAL, 3 - HORIZONTAL. See `supportedSwingModesList` attr in config
     - `customFanMode` - optional. string. See `supportedCustomFanModesList` attr in config
     - `preset` - optional. 0 - NONE, 1 - HOME, 2 - AWAY, 3 - BOOST, 4 - COMFORT, 5 - ECO, 6 - SLEEP, 7 - ACTIVITY. See `supportedPresetsList` attr in config
@@ -264,7 +264,7 @@ Only base functionality
 - `static commandService(connection, { key, state })` - sends command to switch entity.
     - `key` - REQUIRED. key/id of entity
     - `state` - REQUIRED. boolean
-#### TestSensor
+#### TextSensor
 Only base functionality
 
 
