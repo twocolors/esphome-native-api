@@ -276,17 +276,17 @@ declare module "@2colors/esphome-native-api" {
     };
 
     export type BluetoothGATTCharacteristicDescriptor = {
-        uuidList: number[];
+        uuid: string;
         handle: number;
     };
     export type BluetoothGATTCharacteristic = {
-        uuidList: number[];
+        uuid: string;
         handle: number;
         properties: number;
         descriptorsList: BluetoothGATTCharacteristicDescriptor[];
     };
     export type BluetoothGATTService = {
-        uuidList: number[];
+        uuid: string;
         handle: number;
         characteristicsList: BluetoothGATTCharacteristic[];
     };
