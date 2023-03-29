@@ -1218,19 +1218,19 @@ message BluetoothGATTGetServicesRequest {
 }
 
 message BluetoothGATTDescriptor {
-  repeated uint64 uuid = 1;
+  repeated uint64 uuid = 1 [jstype=JS_STRING];
   uint32 handle = 2;
 }
 
 message BluetoothGATTCharacteristic {
-  repeated uint64 uuid = 1;
+  repeated uint64 uuid = 1 [jstype=JS_STRING];
   uint32 handle = 2;
   uint32 properties = 3;
   repeated BluetoothGATTDescriptor descriptors = 4;
 }
 
 message BluetoothGATTService {
-  repeated uint64 uuid = 1;
+  repeated uint64 uuid = 1 [jstype=JS_STRING];
   uint32 handle = 2;
   repeated BluetoothGATTCharacteristic characteristics = 3;
 }
