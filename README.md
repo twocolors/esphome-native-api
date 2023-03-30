@@ -133,6 +133,7 @@ const client = new Client({
     initializeListEntities = true,
     initializeSubscribeStates = true,
     initializeSubscribeLogs = false,
+    initializeSubscribeBLEAdvertisements = false,
     port = 6053,
     host,
     clientInfo = 'esphomenativeapi',
@@ -144,16 +145,17 @@ const client = new Client({
 });
 ```
 
-- `host` - (REQUIRED). Host or ip to connect to.
-- `port` - optional.  Default - `6053`. Port to connect to.
+- `host` - (REQUIRED). Host or ip to connect to
+- `port` - optional.  Default - `6053`. Port to connect to
 - `password` - passsword. Default - `''`. Password used to authorized the client
 - `reconnect` - optional. Default - `true`. indicates wheter reconnect automatically or not
 - `reconnectInterval` - optional. Default - `30000`. Number. Amount of miliseconds to wait before new try
 - `clearSession` - optional. Default - `true`. Set `true` to forget any information after reconnection
 - `initializeDeviceInfo` - optional. Default - `true`. Set `true` to retrieve device info after connection is established
 - `initializeListEntities` - optional. Default - `true`. Set `true` to retrieve list of device's entities after connection is established
-- `initializeSubscribeStates` - optional. Default - `true`.
-- `initializeSubscribeLogs` - optional. Default - `false`.
+- `initializeSubscribeStates` - optional. Default - `true`
+- `initializeSubscribeLogs` - optional. Default - `false`
+- `initializeSubscribeBLEAdvertisements` - optional. Default - `false`
 - `clientInfo` - string, name of client to be sent to esphome device. (Not necessary to send but nice for debugging issues)
 - `clientInfo` - string, name of client to be sent to esphome device. Usually needed only for tracking connection on esphome device. See [Connection](#Connection)
 - `pingInterval` - optional. Default - `15000`. Ping interval. Amount of miliseconds. See [Connection](#Connection)
@@ -175,6 +177,7 @@ const client = new Client({
 - `deviceInfo` - emmited when deviceInfo is retrieved or updated. Activated with `initializeDeviceInfo` options passed to `Client`'s constructor.
 - `newEntity` - emmited when new entity is discovered. Activated with `initializeListEntities` options passed to `Client`'s constructor. First argument is instance of one of [entities](#Entities) class
 - `logs` - emmited when esphome send any logs. Activated with `initializeSubscribeLogs` options passed to `Client`'s constructor. First argument is object with `level`, `tag`, `message`, `send_failed`
+- `ble` - emmited when esphome send any BLE Advertisements. Activated with `initializeSubscribeBLEAdvertisements` options passed to `Client`'s constructor. First argument is object with `address`, `name`, `rssi`, `serviceUuidsList`, `serviceDataList`, `manufacturerDataList`, `addressType`
 - `error` - emitted when any error occurs
 
 ### Entities
@@ -307,6 +310,16 @@ const connection = new Connection({
 - `cameraImageService(single = true, stream = false)` - requests camera image.
     - `single`
     - `stream`
+- `subscribeBluetoothAdvertisementService()` - subsribes to bluetooth advertisement state changes
+- `unsubscribeBluetoothAdvertisementService()` - unsubsribes to bluetooth advertisement state changes
+- `async connectBluetoothDeviceService(address = int)` - connect to connectable BLE device
+- `async disconnectBluetoothDeviceService(address = int)` - disconnect to connectable BLE device
+- `async listBluetoothGATTServicesService(address = int)` - MUST be connected to BLE device, BLE list GATT services
+- `async readBluetoothGATTCharacteristicService(address = int, handle)` - MUST be connected to BLE device, BLE list GATT Characteristic services
+- `async writeBluetoothGATTCharacteristicService(address = int, handle, someUint8Array, response = false)` - MUST be connected to BLE device, BLE write GATT Characteristic more [pull/10](https://github.com/twocolors/esphome-native-api/pull/10)
+- `async notifyBluetoothGATTCharacteristicService(address = int, handle)` - MUST be connected to BLE device, BLE notify GATT Characteristic
+- `async readBluetoothGATTDescriptorService(address = int, handle)` - MUST be connected to BLE device, BLE list GATT Descriptor
+- `async writeBluetoothGATTDescriptorService(address = int, handle, someUint8Array)` - MUST be connected to BLE device, BLE write GATT Descriptor
 - `<entityType>CommandService(data)` - sends command to the specified entity. See `static commandService` in the Entity classes
     - `buttonCommandService(data)`
     - `climateCommandService(data)`
