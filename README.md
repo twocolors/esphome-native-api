@@ -15,7 +15,8 @@ const { Client } = require('@2colors/esphome-native-api');
 const client = new Client({
     host: '<esp host or ip>',
     port: 6053,
-    // password: '', // Insert password if you have any
+    // encryptionKey: '', // Use encryption key
+    // password: '', // Insert password if you have any (Deprecated)
 });
 
 client.connect();
@@ -137,7 +138,8 @@ const client = new Client({
     port = 6053,
     host,
     clientInfo = 'esphomenativeapi',
-    password = '',
+    encryptionKey = '',
+    password = '', // Deprecated
     reconnect = true,
     reconnectInterval = 30000,
     pingInterval = 15000,
@@ -147,7 +149,8 @@ const client = new Client({
 
 - `host` - (REQUIRED). Host or ip to connect to
 - `port` - optional.  Default - `6053`. Port to connect to
-- `password` - passsword. Default - `''`. Password used to authorized the client
+- `encryptionKey` - encryption Key. Default - `''`. The pre-shared key for the encryption. This is a 32-byte base64 encoded string
+- `password` - passsword (Deprecated). Default - `''`. Password used to authorized the client, It is recommended to use the encryptionKey
 - `reconnect` - optional. Default - `true`. indicates wheter reconnect automatically or not
 - `reconnectInterval` - optional. Default - `30000`. Number. Amount of miliseconds to wait before new try
 - `clearSession` - optional. Default - `true`. Set `true` to forget any information after reconnection
@@ -278,7 +281,8 @@ const connection = new Connection({
     port = 6053,
     host,
     clientInfo = 'esphomenativeapi',
-    password = '',
+    encryptionKey = '',
+    password = '', // Deprecated
     reconnect = true,
     reconnectInterval = 30000,
     pingInterval = 15000,
@@ -287,7 +291,8 @@ const connection = new Connection({
 ```
 - `host` - (REQUIRED). Host or ip to connect to.
 - `port` - optional.  Default - `6053`. Port to connect to.
-- `password` - passsword. Default - `''`. Password used to authorized the client
+- `encryptionKey` - encryption Key. Default - `''`. The pre-shared key for the encryption. This is a 32-byte base64 encoded string
+- `password` - passsword (Deprecated). Default - `''`. Password used to authorized the client, It is recommended to use the encryptionKey
 - `reconnect` - optional. Default - `true`. indicates wheter reconnect automatically or not
 - `reconnectInterval` - optional. Default - `30000`. Number. Amount of miliseconds to wait before new try
 - `clientInfo` - string, name of client to be sent to esphome device. (Not necessary to send but nice for debugging issues)
