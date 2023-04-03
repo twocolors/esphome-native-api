@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/twocolors/esphome-native-api#readme",
   "dependencies": {
+    "@richardhopton/noise-c.wasm": "^0.5.0",
     "google-protobuf": "^3.21.2",
     "multicast-dns": "^7.2.5"
   }
