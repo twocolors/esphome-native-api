@@ -315,6 +315,8 @@ declare module "@2colors/esphome-native-api" {
             host: string;
             port?: number;
             password?: string;
+            encryptionKey?: string;
+            expectedServerName?: string;
             clientInfo?: string;
             reconnect?: boolean;
             reconnectInterval?: number;
