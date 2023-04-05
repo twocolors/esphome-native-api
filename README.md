@@ -249,6 +249,12 @@ Only base functionality
     - `key` - REQUIRED. key/id of entity
     - `command` - REQUIRED. 0 - UNLOCK, 1 - LOCK, 2 - OPEN
     - `code` - optional. string. See `requiresCode` attr in config
+#### MediaPlayer
+- `static commandService(connection, { key, command, volume, mediaUrl }` - sends command to mediaplayer entity.
+    - `key` - REQUIRED. key/id of entity
+    - `command` - REQUIRED. 0 - MEDIA_PLAYER_COMMAND_PLAY, 1 - MEDIA_PLAYER_COMMAND_PAUSE, 2 - MEDIA_PLAYER_COMMAND_STOP, 3 - MEDIA_PLAYER_COMMAND_MUTE, 4 - MEDIA_PLAYER_COMMAND_UNMUTE
+    - `volume` - optional. float
+    - `mediaUrl` - optional. string
 #### Number
 - `static commandService(connection, { key, state })` - sends command to number entity.
     - `key` - REQUIRED. key/id of entity
@@ -336,6 +342,7 @@ const connection = new Connection({
     - `selectCommandService(data)`
     - `sirenCommandService(data)`
     - `switchCommandService(data)`
+    - `mediaplayerCommandService(data)`
 
 #### Connection events
 - `message.<type>` - when valid message from esphome device is received. First arg is message. The event is called before `message` event(more genetal analogue)
