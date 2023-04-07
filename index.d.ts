@@ -203,6 +203,10 @@ declare module "@2colors/esphome-native-api" {
         deviceClass: string;
     };
 
+    export type ListEntitiesMediaPlayerResource = ListEntitiesEntityResponse & {
+        supportsPause: boolean;
+    }
+
     type Components =
         | "BinarySensor"
         | "Cover"
@@ -217,7 +221,8 @@ declare module "@2colors/esphome-native-api" {
         | "Select"
         | "Siren"
         | "Lock"
-        | "Button";
+        | "Button"
+        | "MediaPlayer";
 
     type Entities =
         | ListEntitiesEntityResponse
@@ -232,7 +237,8 @@ declare module "@2colors/esphome-native-api" {
         | ListEntitiesSelectResponse
         | ListEntitiesSirenResponse
         | ListEntitiesLockResponse
-        | ListEntitiesButtonResponse;
+        | ListEntitiesButtonResponse
+        | ListEntitiesMediaPlayerResource;
 
     export type EntityList = {
         component: Components;
@@ -452,7 +458,7 @@ declare module "@2colors/esphome-native-api" {
             listener: (message: ListEntitiesEntityResponse) => void
         ): this;
         off(
-            event: "message.TextSensor",
+            event: "message.ListEntitiesTextSensorResponse",
             listener: (message: ListEntitiesEntityResponse) => void
         ): this;
 
@@ -461,7 +467,7 @@ declare module "@2colors/esphome-native-api" {
             listener: (message: ListEntitiesEntityResponse) => void
         ): this;
         off(
-            event: "message.Camera",
+            event: "message.ListEntitiesCameraResponse",
             listener: (message: ListEntitiesEntityResponse) => void
         ): this;
 
@@ -517,6 +523,15 @@ declare module "@2colors/esphome-native-api" {
         off(
             event: "message.ListEntitiesButtonResponse",
             listener: (message: ListEntitiesButtonResponse) => void
+        ): this;
+
+        on(
+            event: "message.ListEntitiesMediaPlayerResponse",
+            listener: (message: ListEntitiesMediaPlayerResponse) => void
+        ): this;
+        off(
+            event: "message.ListEntitiesMediaPlayerResponse",
+            listener: (message: ListEntitiesMediaPlayerResponse) => void
         ): this;
 
         // subscribeLogsService events
