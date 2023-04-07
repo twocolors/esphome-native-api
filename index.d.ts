@@ -205,7 +205,7 @@ declare module "@2colors/esphome-native-api" {
 
     export type ListEntitiesMediaPlayerResource = ListEntitiesEntityResponse & {
         supportsPause: boolean;
-    }
+    };
 
     type Components =
         | "BinarySensor"
@@ -316,6 +316,90 @@ declare module "@2colors/esphome-native-api" {
         data: string;
     };
 
+    export type CommandData = {
+        key: number;
+    };
+    export type ClimateCommandData = CommandData & {
+        mode?: ClimateMode;
+        targetTemperature?: number;
+        targetTemperatureLow?: number;
+        targetTemperatureHigh?: number;
+        legacyAway?: boolean;
+        fanMode?: ClimateFanMode;
+        swingMode?: ClimateSwingMode;
+        customFanMode?: string;
+        preset?: ClimatePreset;
+        customPreset?: string;
+    };
+    export type CoverCommandData = CommandData & {
+        legacyCommand?: LegacyCoverCommand;
+        position?: number;
+        tilt?: number;
+        stop?: boolean;
+    };
+    export enum FanDirection {
+        Forward = 0,
+        Reverse = 1,
+    }
+    export type FanCommandData = CommandData & {
+        state?: boolean;
+        oscillating?: boolean;
+        direction?: FanDirection;
+        speedLevel?: number;
+    };
+    export type LightCommandData = CommandData & {
+        state?: boolean;
+        brightness?: number;
+        colorMode?: number;
+        colorBrightness?: number;
+        red?: number;
+        green?: number;
+        blue?: number;
+        white?: number;
+        colorTemperature?: number;
+        coldWhite?: number;
+        warmWhite?: number;
+        transitionLength?: number;
+        flashLength?: number;
+        effect?: string;
+    };
+    export enum LockCommand {
+        Unlock = 0,
+        Lock = 1,
+        Open = 2,
+    }
+    export type LockCommandData = CommandData & {
+        command: LockCommand;
+        code?: string;
+    };
+    export type NumberCommandData = CommandData & {
+        state: number;
+    };
+    export type SelectCommandData = CommandData & {
+        state: string;
+    };
+    export type SirenCommandData = CommandData & {
+        state?: boolean;
+        tone?: string;
+        duration?: number;
+        volume?: number;
+    };
+    export type SwitchCommandData = CommandData & {
+        state: boolean;
+    };
+    export enum MediaPlayerCommand {
+        Play = 0,
+        Pause = 1,
+        Stop = 2,
+        Mute = 3,
+        Unmute = 4,
+    }
+    export type MediaPlayerCommandData = CommandData & {
+        command: MediaPlayerCommand;
+        volume: number;
+        mediaUrl: string;
+    };
+
     export class Connection {
         constructor(config: {
             host: string;
@@ -357,6 +441,18 @@ declare module "@2colors/esphome-native-api" {
         getTimeService(): Promise<GetTimeResponse>;
         listEntitiesService(): Promise<EntityList>;
         subscribeLogsService(level?: LogLevel, dumpConfig?: boolean): void;
+
+        buttonCommandService(data: CommandData): void;
+        climateCommandService(data: ClimateCommandData): void;
+        coverCommandService(data: CoverCommandData): void;
+        fanCommandService(data: FanCommandData): void;
+        lightCommandService(data: LightCommandData): void;
+        lockCommandService(data: LockCommandData): void;
+        numberCommandService(data: NumberCommandData): void;
+        selectCommandService(data: SelectCommandData): void;
+        sirenCommandService(data: SirenCommandData): void;
+        switchCommandService(data: SwitchCommandData): void;
+        mediaPlayerCommandService(data: MediaPlayerCommandData): void;
 
         subscribeBluetoothAdvertisementService(): void;
         unsubscribeBluetoothAdvertisementService(): void;
