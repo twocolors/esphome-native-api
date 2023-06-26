@@ -274,6 +274,13 @@ declare module "@2colors/esphome-native-api" {
         addressType: number;
     };
 
+    export type BluetoothLERawAdvertisementsResponse = {
+        address: number;
+        rssi: number;
+        data: string;
+        addressType: number;
+    };
+
     export type BluetoothDeviceConnectionResponse = {
         address: number;
         connected: boolean;
@@ -648,6 +655,14 @@ declare module "@2colors/esphome-native-api" {
         off(
             event: "message.BluetoothLEAdvertisementResponse",
             listener: (message: BluetoothLEAdvertisementResponse) => void
+        ): this;
+        on(
+            event: "message.BluetoothLERawAdvertisementsResponse",
+            listener: (message: BluetoothLERawAdvertisementsResponse) => void
+        ): this;
+        off(
+            event: "message.BluetoothLERawAdvertisementsResponse",
+            listener: (message: BluetoothLERawAdvertisementsResponse) => void
         ): this;
 
         // notifyBluetoothGATTCharacteristicService events
