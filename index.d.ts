@@ -469,6 +469,12 @@ declare module "@2colors/esphome-native-api" {
         disconnectBluetoothDeviceService(
             address: number
         ): Promise<BluetoothDeviceConnectionResponse>;
+        pairBluetoothDeviceService(
+            address: number
+        ): Promise<BluetoothDeviceConnectionResponse>;
+        unpairBluetoothDeviceService(
+            address: number
+        ): Promise<BluetoothDeviceConnectionResponse>;
         listBluetoothGATTServicesService(
             address: number
         ): Promise<BluetoothGATTGetServicesResponse>;
