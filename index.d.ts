@@ -317,9 +317,13 @@ declare module "@2colors/esphome-native-api" {
         address: number;
         handle: number;
     };
-    export type BluetoothGATTNotifyDataResponse = {
+
+    export type BluetoothGATTNotifyResponse = {
         address: number;
         handle: number;
+    }
+
+    export type BluetoothGATTNotifyDataResponse = BluetoothGATTNotifyResponse & {
         data: string;
     };
 
@@ -514,7 +518,7 @@ declare module "@2colors/esphome-native-api" {
         notifyBluetoothGATTCharacteristicService(
             address: number,
             handle: number
-        ): Promise<BluetoothGATTNotifyDataResponse>;
+        ): Promise<BluetoothGATTNotifyResponse>;
 
         readBluetoothGATTDescriptorService(
             address: number,
