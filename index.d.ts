@@ -203,7 +203,7 @@ declare module "@2colors/esphome-native-api" {
         deviceClass: string;
     };
 
-    export type ListEntitiesMediaPlayerResource = ListEntitiesEntityResponse & {
+    export type ListEntitiesMediaPlayerResponse = ListEntitiesEntityResponse & {
         supportsPause: boolean;
     };
 
@@ -238,7 +238,7 @@ declare module "@2colors/esphome-native-api" {
         | ListEntitiesSirenResponse
         | ListEntitiesLockResponse
         | ListEntitiesButtonResponse
-        | ListEntitiesMediaPlayerResource;
+        | ListEntitiesMediaPlayerResponse;
 
     export type EntityList = {
         component: Components;
@@ -317,9 +317,13 @@ declare module "@2colors/esphome-native-api" {
         address: number;
         handle: number;
     };
-    export type BluetoothGATTNotifyDataResponse = {
+
+    export type BluetoothGATTNotifyResponse = {
         address: number;
         handle: number;
+    }
+
+    export type BluetoothGATTNotifyDataResponse = BluetoothGATTNotifyResponse & {
         data: string;
     };
 
@@ -338,6 +342,11 @@ declare module "@2colors/esphome-native-api" {
         preset?: ClimatePreset;
         customPreset?: string;
     };
+    export enum LegacyCoverCommand {
+        LEGACY_COVER_COMMAND_OPEN = 0,
+        LEGACY_COVER_COMMAND_CLOSE = 1,
+        LEGACY_COVER_COMMAND_STOP = 2
+    }
     export type CoverCommandData = CommandData & {
         legacyCommand?: LegacyCoverCommand;
         position?: number;
@@ -407,19 +416,36 @@ declare module "@2colors/esphome-native-api" {
         mediaUrl: string;
     };
 
+    export type ConnectionConfig = {
+        host: string;
+        port?: number;
+        password?: string;
+        encryptionKey?: string;
+        expectedServerName?: string;
+        clientInfo?: string;
+        reconnect?: boolean;
+        reconnectInterval?: number;
+        pingInterval?: number;
+        pingAttempts?: number;
+    }
+
+    export type ClientConfig = ConnectionConfig & {
+        clearSession?: boolean;
+        initializeDeviceInfo?: boolean;
+        initializeListEntities?: boolean;
+        initializeSubscribeStates?: boolean;
+        initializeSubscribeLogs?: boolean;
+        initializeSubscribeBLEAdvertisements?: boolean;
+    }
+
+    export class Client {
+        constructor(config: ClientConfig);
+
+        connection: Connection;
+    }
+
     export class Connection {
-        constructor(config: {
-            host: string;
-            port?: number;
-            password?: string;
-            encryptionKey?: string;
-            expectedServerName?: string;
-            clientInfo?: string;
-            reconnect?: boolean;
-            reconnectInterval?: number;
-            pingInterval?: number;
-            pingAttempts?: number;
-        });
+        constructor(config: ConnectionConfig);
 
         host: string;
         port: number;
@@ -487,7 +513,7 @@ declare module "@2colors/esphome-native-api" {
             address: number,
             handle: number,
             value: Uint8Array,
-            response = false
+            response?: boolean
         ): Promise<BluetoothGATTWriteResponse>;
         notifyBluetoothGATTCharacteristicService(
             address: number,
