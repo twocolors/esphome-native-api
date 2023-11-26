@@ -276,6 +276,10 @@ Only base functionality
     - `state` - REQUIRED. boolean
 #### TextSensor
 Only base functionality
+#### Text
+- `static commandService(connection, { key, state })` - sends command to text entity.
+    - `key` - REQUIRED. key/id of entity
+    - `state` - REQUIRED. string. See `minLength`, `maxLength` attrs in config
 
 
 ### Connection

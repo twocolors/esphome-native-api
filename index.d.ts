@@ -207,6 +207,18 @@ declare module "@2colors/esphome-native-api" {
         supportsPause: boolean;
     };
 
+    export enum TextMode {
+        Text = 0,
+        Password = 1,
+    }
+
+    export type ListEntitiesTextResponse = ListEntitiesEntityResponse & {
+        minLength: number;
+        maxLength: number;
+        pattern: string;
+        mode: TextMode;
+    };
+
     type Components =
         | "BinarySensor"
         | "Cover"
@@ -222,7 +234,8 @@ declare module "@2colors/esphome-native-api" {
         | "Siren"
         | "Lock"
         | "Button"
-        | "MediaPlayer";
+        | "MediaPlayer"
+        | "Text";
 
     type Entities =
         | ListEntitiesEntityResponse
@@ -238,7 +251,8 @@ declare module "@2colors/esphome-native-api" {
         | ListEntitiesSirenResponse
         | ListEntitiesLockResponse
         | ListEntitiesButtonResponse
-        | ListEntitiesMediaPlayerResponse;
+        | ListEntitiesMediaPlayerResponse
+        | ListEntitiesTextResponse;
 
     export type EntityList = {
         component: Components;
@@ -415,6 +429,9 @@ declare module "@2colors/esphome-native-api" {
         volume: number;
         mediaUrl: string;
     };
+    export type TextCommandData = CommandData & {
+        state: string;
+    };
 
     export type ConnectionConfig = {
         host: string;
@@ -486,6 +503,7 @@ declare module "@2colors/esphome-native-api" {
         sirenCommandService(data: SirenCommandData): void;
         switchCommandService(data: SwitchCommandData): void;
         mediaPlayerCommandService(data: MediaPlayerCommandData): void;
+        textCommandService(data: TextCommandData): void;
 
         subscribeBluetoothAdvertisementService(): void;
         unsubscribeBluetoothAdvertisementService(): void;
@@ -705,6 +723,15 @@ declare module "@2colors/esphome-native-api" {
         off(
             event: "message.BluetoothGATTNotifyDataResponse",
             listener: (message: BluetoothGATTNotifyDataResponse) => void
+        ): this;
+
+        on(
+            event: "message.ListEntitiesTextResponse",
+            listener: (message: ListEntitiesTextResponse) => void
+        ): this;
+        off(
+            event: "message.ListEntitiesTextResponse",
+            listener: (message: ListEntitiesTextResponse) => void
         ): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
