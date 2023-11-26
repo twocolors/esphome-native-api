@@ -50,13 +50,12 @@ Discovery().then(results => {
         {
             port: 6053,
             network: 'wifi',
-            board: 'esp8285',
+            board: 'esp01_1m',
             platform: 'ESP8266',
-            mac: '70039f0d06d3',
-            version: '2022.12.8',
-            host: 'bathroom-fan.local',
-            address: '192.168.0.111',
-            family: 'IPv4'
+            mac: 'c82b965b4153',
+            version: '2023.11.4',
+            host: 'bathroom-light.local',
+            address: '192.168.0.119'
         }
     ]
     */
@@ -71,13 +70,12 @@ discovery.on('info', console.log);
 {
     port: 6053,
     network: 'wifi',
-    board: 'esp8285',
+    board: 'esp01_1m',
     platform: 'ESP8266',
-    mac: '70039f0d06d3',
-    version: '2022.12.8',
-    host: 'bathroom-fan.local',
-    address: '192.168.0.111',
-    family: 'IPv4'
+    mac: 'c82b965b4153',
+    version: '2023.11.4',
+    host: 'bathroom-light.local',
+    address: '192.168.0.119'
 }
 */
 discovery.run();

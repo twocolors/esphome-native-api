@@ -715,13 +715,25 @@ declare module "@2colors/esphome-native-api" {
         host: string;
         port: number;
         address: string;
-        family: string;
+        address6: string;
 
         // other values that might be returned
         [key: string]: any;
     };
 
+    export type DiscoveryConfig = {
+        multicast?: boolean;
+        interface?: string;
+        port?: number;
+        ip?: string;
+        ttl?: number;
+        loopback?: boolean;
+        reuseAddr?: boolean;
+    }
+
     export class Discovery {
+        constructor(config: DiscoveryConfig);
+
         run(): void;
         destroy(): void;
         on(event: "info", listener: (info: DiscoveryInfo) => void): this;

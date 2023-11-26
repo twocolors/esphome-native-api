@@ -25,5 +25,8 @@
     "@richardhopton/noise-c.wasm": "^0.5.0",
     "google-protobuf": "^3.21.2",
     "multicast-dns": "^7.2.5"
+  },
+  "bin": {
+    "esphome-discover": "scripts/discover.js"
   }
 }
