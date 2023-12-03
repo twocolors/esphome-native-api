@@ -756,6 +756,7 @@ declare module "@2colors/esphome-native-api" {
         ttl?: number;
         loopback?: boolean;
         reuseAddr?: boolean;
+        bind?: string;
     }
 
     export class Discovery {

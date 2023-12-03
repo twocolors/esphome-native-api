@@ -106,12 +106,13 @@ const discovery = new Discovery(options);
 
 - `options` - optional
 - `multicast` - optional. Default - `true`. Use udp multicasting
-- `interface` - optional. Explicitly specify a network interface.  defaults to all
+- `interface` - optional. Explicitly specify a network interface. defaults to all
 - `port` - optional. Default - `5353`. Set the udp port
 - `ip` - optional. Default - `224.0.0.251`. Set the udp ip
 - `ttl` - optional. Default - `255`. Set the multicast ttl
 - `loopback` - optional. Default - `true`. Receive your own packets
 - `reuseAddr` - optional. Default - `true`. Set the reuseAddr option when creating the socket (requires node >=0.11.13)
+- `bind` - optional. for work `interface` read [more](https://github.com/mafintosh/multicast-dns/issues/53#issuecomment-638365104)
 
 ```javascript
 const { Discovery } = require('@2colors/esphome-native-api');
