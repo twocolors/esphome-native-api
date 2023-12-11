@@ -302,6 +302,18 @@ declare module "@2colors/esphome-native-api" {
         error: number;
     };
 
+    export type BluetoothDevicePairingResponse = {
+        address: number;
+        paired: boolean;
+        error: number;
+    };
+
+    export type BluetoothDeviceUnpairingResponse = {
+        address: number;
+        success: boolean;
+        error: number;
+    };
+
     export type BluetoothGATTCharacteristicDescriptor = {
         uuid: string;
         handle: number;
@@ -515,10 +527,10 @@ declare module "@2colors/esphome-native-api" {
         ): Promise<BluetoothDeviceConnectionResponse>;
         pairBluetoothDeviceService(
             address: number
-        ): Promise<BluetoothDeviceConnectionResponse>;
+        ): Promise<BluetoothDevicePairingResponse>;
         unpairBluetoothDeviceService(
             address: number
-        ): Promise<BluetoothDeviceConnectionResponse>;
+        ): Promise<BluetoothDeviceUnpairingResponse>;
         listBluetoothGATTServicesService(
             address: number
         ): Promise<BluetoothGATTGetServicesResponse>;
