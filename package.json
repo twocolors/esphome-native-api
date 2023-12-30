@@ -1,6 +1,6 @@
 {
   "name": "@2colors/esphome-native-api",
-  "version": "1.2.8",
+  "version": "1.2.9",
   "license": "MIT",
   "description": "esphome native api client",
   "main": "index.js",
