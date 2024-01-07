@@ -276,23 +276,27 @@ declare module "@2colors/esphome-native-api" {
         sendFailed: boolean;
     };
 
+    export type BluetoothServiceData = {
+        uuid: string;
+        legacyDataList: Uint8Array;
+        data: string;
+    };
+
     export type BluetoothLEAdvertisementResponse = {
         address: number;
         name: string;
         rssi: number;
-        serviceDataList: {
-            uuid: string;
-            legacyDataList: Uint8Array;
-            data: string;
-        }[];
+        serviceUuidsList: string[];
+        serviceDataList: BluetoothServiceData[];
+        manufacturerDataList: BluetoothServiceData[];
         addressType: number;
     };
 
     export type BluetoothLERawAdvertisementsResponse = {
         address: number;
         rssi: number;
-        data: string;
         addressType: number;
+        data: string;
     };
 
     export type BluetoothDeviceConnectionResponse = {
