@@ -21,9 +21,12 @@ declare module "@2colors/esphome-native-api" {
         projectName: string;
         projectVersion: string;
         webserverPort: number;
-        bluetoothProxyVersion: number;
+        legacyBluetoothProxyVersion: number;
+        bluetoothProxyFeatureFlags: number;
         manufacturer: string;
         friendlyName: string;
+        voiceAssistantVersion: number;
+        suggestedArea: string;
     };
 
     export type GetTimeResponse = { epochSeconds: number };
