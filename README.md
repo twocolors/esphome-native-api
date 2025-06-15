@@ -342,6 +342,7 @@ const connection = new Connection({
     - `lightCommandService(data)`
     - `lockCommandService(data)`
     - `numberCommandService(data)`
+    - `textCommandService(data)`
     - `selectCommandService(data)`
     - `sirenCommandService(data)`
     - `switchCommandService(data)`
