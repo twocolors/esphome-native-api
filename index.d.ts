@@ -6,7 +6,7 @@ declare module "@2colors/esphome-native-api" {
         name: string;
     };
 
-    export type ConnectResponse = {
+    export type AuthenticationResponse = {
         invalidPassword: boolean;
     };
 
@@ -503,7 +503,7 @@ declare module "@2colors/esphome-native-api" {
         disconnect(): void;
 
         helloService(clientInfo: string): Promise<HelloResponse>;
-        connectService(password: string): Promise<ConnectResponse>;
+        connectService(password: string): Promise<AuthenticationResponse>;
         disconnectService(): Promise<void>;
         pingService(): Promise<void>;
         deviceInfoService(): Promise<DeviceInfoResponse>;
