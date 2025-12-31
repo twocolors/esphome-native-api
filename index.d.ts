@@ -479,7 +479,10 @@ declare module "@2colors/esphome-native-api" {
 
         connection: Connection;
 
-        // listEntitiesService Events
+        on(
+            event: "error",
+            listener: (error: any) => void
+        ): this;
         on(
             event: "ble",
             listener: (message: BluetoothLEAdvertisementResponse) => void
