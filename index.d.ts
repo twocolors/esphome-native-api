@@ -534,7 +534,8 @@ declare module "@2colors/esphome-native-api" {
         unsubscribeBluetoothAdvertisementService(): void;
         connectBluetoothDeviceService(
             address: number,
-            addressType?: number
+            addressType?: number,
+            useCache?: boolean
         ): Promise<BluetoothDeviceConnectionResponse>;
         disconnectBluetoothDeviceService(
             address: number
