@@ -326,7 +326,7 @@ const connection = new Connection({
     - `stream`
 - `subscribeBluetoothAdvertisementService()` - subsribes to bluetooth advertisement state changes
 - `unsubscribeBluetoothAdvertisementService()` - unsubsribes to bluetooth advertisement state changes
-- `async connectBluetoothDeviceService(address = int)` - connect to connectable BLE device
+- `async connectBluetoothDeviceService(address = int, addressType = int, useCache = boolean)` - connect to connectable BLE device
 - `async disconnectBluetoothDeviceService(address = int)` - disconnect to connectable BLE device
 - `async listBluetoothGATTServicesService(address = int)` - MUST be connected to BLE device, BLE list GATT services
 - `async readBluetoothGATTCharacteristicService(address = int, handle)` - MUST be connected to BLE device, BLE list GATT Characteristic services

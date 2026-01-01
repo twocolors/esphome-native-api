@@ -478,6 +478,15 @@ declare module "@2colors/esphome-native-api" {
         constructor(config: ClientConfig);
 
         connection: Connection;
+
+        on(
+            event: "error",
+            listener: (error: any) => void
+        ): this;
+        on(
+            event: "ble",
+            listener: (message: BluetoothLEAdvertisementResponse) => void
+        ): this;
     }
 
     export class Connection {
@@ -528,7 +537,8 @@ declare module "@2colors/esphome-native-api" {
         unsubscribeBluetoothAdvertisementService(): void;
         connectBluetoothDeviceService(
             address: number,
-            addressType?: number
+            addressType?: number,
+            useCache?: boolean
         ): Promise<BluetoothDeviceConnectionResponse>;
         disconnectBluetoothDeviceService(
             address: number
