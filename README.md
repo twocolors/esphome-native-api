@@ -94,7 +94,7 @@ client.on('logs', ({ message }) => {
 });
 ```
 
-### User-defined services
+### User-defined services (Synopsis)
 [User-defined services](https://esphome.io/components/api.html#user-defined-services) let an ESPHome device expose custom callable functions.
 Use `listEntitiesService()` to discover them and `executeServiceService()` to invoke them.
 
