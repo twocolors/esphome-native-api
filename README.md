@@ -112,7 +112,9 @@ connection.on('authorized', async () => {
     // Discover all entities, including user-defined services
     const entities = await connection.listEntitiesService();
 
-    const services = entities.filter(e => e.component === 'Services');
+    const services = entities
+        .filter(e => e.component === 'Services')
+        .map(e => e.entity);
     console.log('User-defined services:', services);
     /*
     [
