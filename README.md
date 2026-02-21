@@ -93,6 +93,51 @@ client.on('logs', ({ message }) => {
     console.log(message);
 });
 ```
+
+### User-defined services
+[User-defined services](https://esphome.io/components/api.html#user-defined-services) let an ESPHome device expose custom callable functions.
+Use `listEntitiesService()` to discover them and `executeServiceService()` to invoke them.
+
+```javascript
+const { Connection, ServiceArgType } = require('@2colors/esphome-native-api');
+
+const connection = new Connection({
+    host: '<esp host or ip>',
+    port: 6053,
+});
+
+connection.connect();
+
+connection.on('authorized', async () => {
+    // Discover all entities, including user-defined services
+    const entities = await connection.listEntitiesService();
+
+    const services = entities.filter(e => e.component === 'Services');
+    console.log('User-defined services:', services);
+    /*
+    [
+        {
+            name: 'my_service',
+            key: 1234567890,
+            argsList: [
+                { name: 'brightness', type: 1 },  // ServiceArgType.Int
+                { name: 'message',    type: 3 }   // ServiceArgType.String
+            ]
+        }
+    ]
+    */
+
+    // Call a user-defined service by key with typed arguments
+    connection.executeServiceService({
+        key: services[0].key,
+        args: [
+            { type: ServiceArgType.Int,    value: 100      },
+            { type: ServiceArgType.String, value: 'hello'  },
+        ],
+    });
+});
+```
+
 ## Documantation
 
 ### Discovery
@@ -283,6 +328,81 @@ Only base functionality
     - `state` - REQUIRED. string. See `minLength`, `maxLength` attrs in config
 
 
+### User-defined Services
+[User-defined services](https://esphome.io/components/api.html#user-defined-services) are custom callable functions declared in the ESPHome device's YAML configuration. They are discovered automatically when you call `listEntitiesService()` and are invoked with `executeServiceService()`.
+
+#### ServiceArgType
+The `ServiceArgType` export maps argument type names to the numeric values used in the protocol:
+
+| Name          | Value | Description           |
+|---------------|-------|-----------------------|
+| `Bool`        | 0     | Single boolean        |
+| `Int`         | 1     | Single integer        |
+| `Float`       | 2     | Single float          |
+| `String`      | 3     | Single string         |
+| `BoolArray`   | 4     | Array of booleans     |
+| `IntArray`    | 5     | Array of integers     |
+| `FloatArray`  | 6     | Array of floats       |
+| `StringArray` | 7     | Array of strings      |
+
+```javascript
+const { ServiceArgType } = require('@2colors/esphome-native-api');
+```
+
+#### Discovering services with `listEntitiesService()`
+Services are returned alongside regular entities. Filter by `component === 'Services'` to get only service definitions:
+
+```javascript
+const entities = await connection.listEntitiesService();
+const services = entities.filter(e => e.component === 'Services');
+/*
+[
+    {
+        name: 'my_service',
+        key: 1234567890,
+        argsList: [
+            { name: 'brightness', type: 1 },  // ServiceArgType.Int
+            { name: 'enable',     type: 0 }   // ServiceArgType.Bool
+        ]
+    }
+]
+*/
+```
+
+Each service entry has:
+- `name` - string. The service name as declared in ESPHome YAML
+- `key` - number. Unique key used to invoke the service
+- `argsList` - array of `{ name: string, type: ServiceArgType }` argument descriptors
+
+#### Executing a service with `executeServiceService(data)`
+`connection.executeServiceService({ key, args })`
+
+- `key` - REQUIRED. number. The service `key` from the discovery response
+- `args` - optional. Array of `{ type: ServiceArgType, value }` objects, one per argument in the order declared by `argsList`
+
+```javascript
+const { Connection, ServiceArgType } = require('@2colors/esphome-native-api');
+
+connection.executeServiceService({
+    key: 1234567890,
+    args: [
+        { type: ServiceArgType.Int,    value: 100     },
+        { type: ServiceArgType.Bool,   value: true    },
+        { type: ServiceArgType.String, value: 'hello' },
+    ],
+});
+```
+
+#### Listening for service definitions
+You can also react to service definitions as they arrive using the connection event:
+
+```javascript
+connection.on('message.ListEntitiesServicesResponse', (service) => {
+    console.log('Service discovered:', service.name, 'key:', service.key);
+});
+```
+
+
 ### Connection
 ```javascript
 const { Connection } = require('@2colors/esphome-native-api');
@@ -347,6 +467,9 @@ const connection = new Connection({
     - `sirenCommandService(data)`
     - `switchCommandService(data)`
     - `mediaplayerCommandService(data)`
+- `executeServiceService({ key, args })` - executes a [user-defined service](https://esphome.io/components/api.html#user-defined-services). See [User-defined Services](#user-defined-services) for full details.
+    - `key` - REQUIRED. number. Service key obtained from `listEntitiesService()`
+    - `args` - optional. Array of `{ type: ServiceArgType, value }` objects
 
 #### Connection events
 - `message.<type>` - when valid message from esphome device is received. First arg is message. The event is called before `message` event(more genetal analogue)
