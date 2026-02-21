@@ -356,7 +356,9 @@ Services are returned alongside regular entities. Filter by `component === 'Serv
 
 ```javascript
 const entities = await connection.listEntitiesService();
-const services = entities.filter(e => e.component === 'Services');
+const services = entities
+    .filter(e => e.component === 'Services')
+    .map(e => e.entity);
 /*
 [
     {
