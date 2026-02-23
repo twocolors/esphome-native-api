@@ -222,6 +222,43 @@ declare module "@2colors/esphome-native-api" {
         mode: TextMode;
     };
 
+    export enum ServiceArgType {
+        Bool = 0,
+        Int = 1,
+        Float = 2,
+        String = 3,
+        BoolArray = 4,
+        IntArray = 5,
+        FloatArray = 6,
+        StringArray = 7,
+    }
+
+    export type ListEntitiesServicesArgument = {
+        name: string;
+        type: ServiceArgType;
+    };
+
+    export type ListEntitiesServicesResponse = {
+        name: string;
+        key: number;
+        argsList: ListEntitiesServicesArgument[];
+    };
+
+    export type ExecuteServiceArgument =
+        | { type: ServiceArgType.Bool; value: boolean }
+        | { type: ServiceArgType.Int; value: number }
+        | { type: ServiceArgType.Float; value: number }
+        | { type: ServiceArgType.String; value: string }
+        | { type: ServiceArgType.BoolArray; value: boolean[] }
+        | { type: ServiceArgType.IntArray; value: number[] }
+        | { type: ServiceArgType.FloatArray; value: number[] }
+        | { type: ServiceArgType.StringArray; value: string[] };
+
+    export type ExecuteServiceCommandData = {
+        key: number;
+        args?: ExecuteServiceArgument[];
+    };
+
     type Components =
         | "BinarySensor"
         | "Cover"
@@ -238,7 +275,8 @@ declare module "@2colors/esphome-native-api" {
         | "Lock"
         | "Button"
         | "MediaPlayer"
-        | "Text";
+        | "Text"
+        | "Services";
 
     type Entities =
         | ListEntitiesEntityResponse
@@ -255,7 +293,8 @@ declare module "@2colors/esphome-native-api" {
         | ListEntitiesLockResponse
         | ListEntitiesButtonResponse
         | ListEntitiesMediaPlayerResponse
-        | ListEntitiesTextResponse;
+        | ListEntitiesTextResponse
+        | ListEntitiesServicesResponse;
 
     export type EntityList = {
         component: Components;
@@ -532,6 +571,7 @@ declare module "@2colors/esphome-native-api" {
         switchCommandService(data: SwitchCommandData): void;
         mediaPlayerCommandService(data: MediaPlayerCommandData): void;
         textCommandService(data: TextCommandData): void;
+        executeServiceService(data: ExecuteServiceCommandData): void;
 
         subscribeBluetoothAdvertisementService(): void;
         unsubscribeBluetoothAdvertisementService(): void;
@@ -762,6 +802,15 @@ declare module "@2colors/esphome-native-api" {
         off(
             event: "message.ListEntitiesTextResponse",
             listener: (message: ListEntitiesTextResponse) => void
+        ): this;
+
+        on(
+            event: "message.ListEntitiesServicesResponse",
+            listener: (message: ListEntitiesServicesResponse) => void
+        ): this;
+        off(
+            event: "message.ListEntitiesServicesResponse",
+            listener: (message: ListEntitiesServicesResponse) => void
         ): this;
 
         on(event: string, listener: (...args: any[]) => void): this;
